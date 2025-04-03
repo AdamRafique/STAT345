@@ -8,6 +8,6 @@ output: word_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(devtools)
-devtools::install_github("abresler/nbastatR")
+1devtools::install_github("abresler/nbastatR@aba9179ef644f263387c1536d6ddd26104d79cf4")
 ```
 
