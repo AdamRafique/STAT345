@@ -7,6 +7,8 @@ output: word_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(devtools)
+devtools::install_github("abresler/nbastatR")
 ```
 
 ## R Markdown
