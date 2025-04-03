@@ -15,3 +15,43 @@ library(tidyverse)
 library(ggplot2)
 ```
 
+```{r, echo=FALSE}
+#The following code retrieves the locations of shots made by Milwaukee Bucks players by year and puts each into its own separate dataframe. teams_shots("Bucks", seasons = 20XX) retrieves the shot data for the Bucks for that particular year, filter(isShotMade == TRUE) removes the shots that were missed, select(locationX, locationY) makes sure the dataframe only includes the X-coordinate and Y-coordinate of where the shot was made ((0, 0) being the center of the net).
+
+Shots_2015 <- teams_shots("Bucks", seasons = 2015) %>% 
+  filter(isShotMade == TRUE) %>% select(locationX, locationY) %>% filter(locationY < 325)
+Shots_2016 <- teams_shots("Bucks", seasons = 2016) %>% 
+  filter(isShotMade == TRUE) %>% select(locationX, locationY) %>% filter(locationY < 325)
+Shots_2017 <- teams_shots("Bucks", seasons = 2017) %>% 
+  filter(isShotMade == TRUE) %>% select(locationX, locationY) %>% filter(locationY < 325)
+Shots_2018 <- teams_shots("Bucks", seasons = 2018) %>% 
+  filter(isShotMade == TRUE) %>% select(locationX, locationY) %>% filter(locationY < 325)
+Shots_2019 <- teams_shots("Bucks", seasons = 2019) %>% 
+  filter(isShotMade == TRUE) %>% select(locationX, locationY) %>% filter(locationY < 325)
+Shots_2020 <- teams_shots("Bucks", seasons = 2020) %>% 
+  filter(isShotMade == TRUE) %>% select(locationX, locationY) %>% filter(locationY < 325)
+Shots_2021 <- teams_shots("Bucks", seasons = 2021) %>% 
+  filter(isShotMade == TRUE) %>% select(locationX, locationY) %>% filter(locationY < 325)
+Shots_2022 <- teams_shots("Bucks", seasons = 2022) %>% 
+  filter(isShotMade == TRUE) %>% select(locationX, locationY) %>% filter(locationY < 325)
+Shots_2023 <- teams_shots("Bucks", seasons = 2023) %>% 
+  filter(isShotMade == TRUE) %>% select(locationX, locationY) %>% filter(locationY < 325)
+Shots_2024 <- teams_shots("Bucks", seasons = 2024) %>% 
+  filter(isShotMade == TRUE) %>% select(locationX, locationY) %>% filter(locationY < 325)
+Shots_2025 <- teams_shots("Bucks", seasons = 2025) %>% 
+  filter(isShotMade == TRUE) %>% select(locationX, locationY) %>% filter(locationY < 325)
+```
+
+```{r, echo = FALSE}
+Shots_2015 %>% ggplot(aes(x = locationX, y = locationY)) + geom_point() + xlim(-250,250) + ylim(-50, 325)
+Shots_2016 %>% ggplot(aes(x = locationX, y = locationY)) + geom_point() + xlim(-250,250) + ylim(-50, 325)
+Shots_2017 %>% ggplot(aes(x = locationX, y = locationY)) + geom_point() + xlim(-250,250) + ylim(-50, 325)
+Shots_2018 %>% ggplot(aes(x = locationX, y = locationY)) + geom_point() + xlim(-250,250) + ylim(-50, 325)
+Shots_2019 %>% ggplot(aes(x = locationX, y = locationY)) + geom_point() + xlim(-250,250) + ylim(-50, 325)
+Shots_2020 %>% ggplot(aes(x = locationX, y = locationY)) + geom_point() + xlim(-250,250) + ylim(-50, 325)
+Shots_2021 %>% ggplot(aes(x = locationX, y = locationY)) + geom_point() + xlim(-250,250) + ylim(-50, 325)
+Shots_2022 %>% ggplot(aes(x = locationX, y = locationY)) + geom_point() + xlim(-250,250) + ylim(-50, 325)
+Shots_2023 %>% ggplot(aes(x = locationX, y = locationY)) + geom_point() + xlim(-250,250) + ylim(-50, 325)
+Shots_2024 %>% ggplot(aes(x = locationX, y = locationY)) + geom_point() + xlim(-250,250) + ylim(-50, 325)
+Shots_2025 %>% ggplot(aes(x = locationX, y = locationY)) + geom_point() + xlim(-250,250) + ylim(-50, 325)
+```
