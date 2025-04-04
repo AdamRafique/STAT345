@@ -11,20 +11,62 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 library(devtools)
 devtools::install_github("abresler/nbastatR@aba9179ef644f263387c1536d6ddd26104d79cf4")
-library(nbastatR)
+library(nbastatR) #nbastatR contains the data used in this file, along with the functions that call it.
 library(dplyr)
-library(tidyverse)
 library(ggplot2)
 ```
 
 ```{r, include=FALSE, warning=FALSE}
-#The following code retrieves the locations of shots made by Milwaukee Bucks players by year and puts each into its own separate dataframe. teams_shots("Bucks", seasons = 20XX) retrieves the shot data for the Bucks for that particular year, filter(isShotMade == TRUE) removes the shots that were missed, select(locationX, locationY) makes sure the dataframe only includes the X-coordinate and Y-coordinate of where the shot was made ((0, 0) being the center of the net).
+#This chunk collects the Bucks' shot data from 2024 and 2025 and places them into separate objects. I decided to use the Bucks' shot data in particular because all of the basketball fans I know, save for one, are fans of the Bucks. 
 
-Shots_2025 <- teams_shots("Bucks", seasons = 2025)
+#The comparison I'm doing is a year-on-year comparison between 2024 and 2025, the reason I'm doing this is because this is the most recent year-on-year comparison that is possible, and the reason I'm doing a year-on-year comparison is because I felt it would be easier than attempting to identify trends over the course of several years.
+
 Shots_2024 <- teams_shots("Bucks", seasons = 2024)
+Shots_2025 <- teams_shots("Bucks", seasons = 2025)
 ```
 
 ```{r, echo = FALSE, warning=FALSE, fig.height = 2.5, fig.width = 3.125}
-Shots_2024 %>% ggplot(aes(x = locationX, y = locationY, colour = isShotMade)) + geom_point(alpha = 0.03) + ylim(-50,350) + xlim(-250,250) + theme(legend.position = "none", plot.title = element_text(hjust = 0.5)) + ggtitle("2024")
-Shots_2025 %>% ggplot(aes(x = locationX, y = locationY, colour = isShotMade)) + geom_point(alpha = 0.03) + ylim(-50,350) + xlim(-250,250) + theme(legend.position = "none", plot.title = element_text(hjust = 0.5)) + ggtitle("2025")
+#This chunk creates the shot charts for 2024 and 2025 in the form of scatterplots. The opacity of the points is set incredibly low in order to make the very high concentration of slam dunks easier to notice, and the reason it's not lower is so the lighter yet still considerable concentration around the 3-point line is easier to notice.
+
+#Blue represents shots that were made and orange represents shots that were made. I chose to state this just below the graph rather than have it in a legend because I felt the legend would not be readable and instead simply take up space.
+
+#The bounds for the x-axis and y-axis are there so the graphs follow a consistent scale, which makes comparisons easier. The x-axis cuts off at 350 because all of the data points beyond 350 are outliers that are nearly invisible and would only serve to needlessly compress the points that *are* visible, which would make comparison more difficult.
+
+#I understand the background for these graphs was supposed to be a basketball court aligned with the data, I just could not find a good image that was not a PDF or an SVG, and I do not know how to convert either into an image that can be used as the background for a graph.
+
+Shots_2024 %>% ggplot(aes(x = locationX, y = locationY, colour = isShotMade)) + geom_point(alpha = 0.03) + ylim(-50,350) + xlim(-250,250) + theme(legend.position = "none", plot.title = element_text(hjust = 0.5)) + ggtitle("2024") + labs(x = "X-Position", y = "Y-Position")
+Shots_2025 %>% ggplot(aes(x = locationX, y = locationY, colour = isShotMade)) + geom_point(alpha = 0.03) + ylim(-50,350) + xlim(-250,250) + theme(legend.position = "none", plot.title = element_text(hjust = 0.5)) + ggtitle("2025") + labs(x = "X-Position", y = "Y-Position")
 ```
+Note: Blue represents shots that were made, orange represents shots that were missed.
+
+<br>
+
+# Main Insights
+
+  * The area with the highest density of shots is around the net
+
+  * There appear to be more slam dunks attempted in 2024 than 2025
+
+  * There is a more even spread of shots attempted along the 3-point line in 2025 than 2024
+
+  * There are more shots attempted just beyond the 3-point line in 2024 than 2025
+
+  * Shots within the 3-point line are more concentrated towards the center in 2025
+
+  * Shots within the 3-point line are more concentrated to the left in 2024
+  
+\newpage
+
+# Elaboration on Main Insights
+
+  Before elaborating on the insights made, a disclaimer: My insights are limited and surface-level due to my limited and surface-level knowledge of basketball. I set the opacity of an individual point incredibly low so a high density of shots in a single area becomes more pronounced as it appears more opaque. As such, I noticed that the area around the net was the most opaque out of any location on the graph, so I inferred that it is the area with the highest density of shots. I also noticed that, for both graphs, the area around the net has the same opacity, but is bigger for the 2024 graph than the 2025 graph, so I inferred that more slam dunks were attempted in 2024 than 2025.
+  
+  I noticed that the 3-point line was more consistent in its opacity in the 2025 graph than the 2024 one, so I inferred that the spread of shots attempted was more consistent in 2025 than 2024. I also noticed that there are considerably more points just beyond the 3-point line in the 2025 graph than the 2024 one, so I inferred that more shots were attempted just beyond the 3-point line in 2024 than 2024.
+  
+  Lastly, for the shots within the 3-point line, I noticed that the center had a higher density of points in the 2025 graph whereas the left had a higher density of points in the 2024 graph. Therefore, I inferred that shots made within the 3-point line are more concentrated towards the center in 2025 and to the left in 2024.
+
+\newpage
+
+# Above and Beyond: Four-Point Line
+
+  If the NBA were to implement a 4-point shot, I would draw a 4-point arc to be 29 feet from the center of the net. It is far enough away from the 3-point line that it would not effectively eliminate the 3-point shot while still being close enough that we can expect over a quarter of players who attempt the shot to make it, which would result in an expected value above 1. I believe that, were the 4-point shot implemented, the graphic shown on the first page would feature a thin yet noticeable line around the 4-point arc as more players would attempt to make 4-point shots, particularly around the arc.
